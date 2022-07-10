@@ -28,7 +28,7 @@ class ReadJson implements Runnable {
         if (peerDeps[dep] === undefined) {
           peerDeps[dep] = jsonFile.peerDependencies[dep];
         } else {
-            const operator = Array.from(jsonFile.peerDependencies[dep])[0];
+          const operator = Array.from(jsonFile.peerDependencies[dep])[0];
             
           if (!Number.isInteger(operator)) {
             const newDepCleaned = peerDeps[dep].replace(operator, '');
@@ -38,8 +38,8 @@ class ReadJson implements Runnable {
             }
           } else {
             if (semver.lt( peerDeps[dep], jsonFile.peerDependencies[dep])) {
-                peerDeps[dep] = jsonFile.peerDependencies[dep];
-              }
+              peerDeps[dep] = jsonFile.peerDependencies[dep];
+            }
           }
         }
       });
