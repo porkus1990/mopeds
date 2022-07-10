@@ -40,6 +40,12 @@ jobs:
         run: |
           npm install
 
+      - name: lint
+        shell: bash
+        run: |
+          npm run lint
+
       - name: test
+        shell: bash
         run: |
           npm run test

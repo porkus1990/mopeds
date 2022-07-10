@@ -8,6 +8,7 @@
   },
   "peerDependencies": {
     "package-b": "0.0.3",
-    "somePackage": "^2.6.7"
+    "somePackage": "^2.6.7",
+    "someOtherPackage": "4.5.6"
   }
 }
