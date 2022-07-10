@@ -1,4 +1,4 @@
-import { readdir, lstat  } from 'fs';
+import { readdir, statSync, writeFileSync  } from 'fs';
 
 interface Runnable {
     run(): Promise<void>;
@@ -19,13 +19,7 @@ class ReadJson implements Runnable {
         const paths: string[] = [];
 
         await readdir(this.baseFolder, (e, dirs) => {
-            dirs.filter(async (dir) => {
-                const stat = await lstat(dir, (_, stats) => {
-                    return stats.isDirectory()
-                });
-                
-                return stat;
-            })
+            return dirs.filter((dir) => statSync(`${this.baseFolder}/${dir}`)?.isDirectory())
             .map(dir => paths.push(`${this.baseFolder}/${dir}`));
         });
             
