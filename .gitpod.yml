@@ -1,0 +1,32 @@
+github:
+  prebuilds:
+    master: true
+    branches: false
+    pullRequests: true
+    addCheck: true
+    addComment: true
+    addBadge: true
+    addLabel: prebuilt-in-gitpod
+
+tasks:
+  - name: Start devserver
+    openMode: split-right
+    init: npm i
+
+workspaceLocation: ./dm-jobs
+
+vscode:
+  extensions:
+    - mgmcdermott.vscode-language-babel
+    - ms-azuretools.vscode-docker
+    - EditorConfig.EditorConfig
+    - dbaeumer.vscode-eslint
+    - eamodio.gitlens
+    - GraphQL.vscode-graphql
+    - Prisma.prisma
+    - Prisma.prisma-insider
+    - pflannery.vscode-versionlens
+    - bungcip.better-toml
+    - mikestead.dotenv
+    - wix.vscode-import-cost
+    - akosyakov.gitpod-monitor

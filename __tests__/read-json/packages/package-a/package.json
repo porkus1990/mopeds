@@ -1,0 +1,13 @@
+{
+  "name": "package-a",
+  "dependencies": {
+    "@types/jest": "^28.1.4",
+    "ts-jest": "^28.0.5",
+    "typescript": "^4.7.4",
+    "package-c": "1.0.0"
+  },
+  "peerDependencies": {
+    "package-b": "0.0.3",
+    "somePackage": "^2.6.7"
+  }
+}

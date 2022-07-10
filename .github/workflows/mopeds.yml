@@ -1,0 +1,45 @@
+name: mopeds
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+concurrency:
+  group: mopeds-${{ github.head_ref }}
+  cancel-in-progress: true
+  
+env:
+  NODE_OPTIONS: "--max-old-space-size=8192"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3.0.0
+        with:
+          node-version: '16.15.0'
+      
+      - name: 💿 Cache
+        id: cache-dep
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+          key: ${{ runner.mopeds }}-steve-jobs-${{ hashFiles('**/package.json') }}
+
+      - name: init
+        if: steps.cache-dep.outputs.cache-hit != 'true'
+        run: |
+          npm install
+
+      - name: test backend
+        run: |
+          npm run test
