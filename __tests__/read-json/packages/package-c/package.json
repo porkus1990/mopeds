@@ -9,6 +9,6 @@
       "someOtherPackage": "3.0.0"
     },
     "peerDependencies": {
-      "somePackage": "^2.6.7"
+      "somePackage": "^2.6.8"
     }
   }
