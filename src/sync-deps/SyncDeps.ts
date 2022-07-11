@@ -38,22 +38,24 @@ class SyncDeps implements Runnable {
             Object.keys(peerDepsToCheck).forEach(pd => {
               if (dependencies[pd] === undefined) {
                 dependencies[pd] = peerDepsToCheck[pd];
+                if (peerDependencies[pd] !== undefined) {
+                  peerDependencies[pd] = peerDepsToCheck[pd];
+                }
               } else {
-                dependencies[pd] = compareVersions(dependencies[pd], peerDepsToCheck[pd]);
+                const versionToUse = compareVersions(dependencies[pd], peerDepsToCheck[pd]);
+                dependencies[pd] = versionToUse;
+                if (peerDependencies[pd] !== undefined) {
+                  peerDependencies[pd] = versionToUse;
+                }
               }
             });
           }
         }
       });
-      const fileToWrite = { ...file, ...dependencies };
+      const fileToWrite = { ...file, ...dependencies, ...peerDependencies };
       const pathToWrite = this.packagePaths.filter(p => p.includes(file.name.replace(this.packagePrefix, '')));
       writeFileSync(`${pathToWrite[0]}/${this.PACKAGEJSON}`, JSON.stringify(fileToWrite));
-
     }));
-  }
-
-  private determineMonorepoDeps(dependenciesToCheck: Object) {
-
   }
 }
 
