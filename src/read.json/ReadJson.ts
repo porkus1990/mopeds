@@ -1,7 +1,6 @@
 import { readdirSync, statSync  } from 'fs';
-import { Runnable } from '../runnable-interface';
 
-class ReadJson implements Runnable {
+class ReadJson {
   private baseFolder: string;
 
   constructor(baseFolder: string) {

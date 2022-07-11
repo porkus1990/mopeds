@@ -1,30 +1,12 @@
-import { readFileSync, writeFileSync } from 'fs';
-import { Runnable } from '../runnable-interface';
 import { compareVersions } from '../compare-versions';
+import { Base } from './strategies/Base';
+import { IStrategy } from './strategies/stretegy.interface';
+import { IPackageType } from './strategies/packge.type';
 
-interface IPackageType {
-  [name: string]: string;
-}
-
-class SyncDeps implements Runnable {
-  private readonly packagePrefix: string;
-
-  private readonly packagePaths: string[];
-
-  private readonly PACKAGEJSON = 'package.json';
-
-  constructor(packagePaths: string[], packagePrefix: string = '') {
-    this.packagePrefix = packagePrefix;
-    this.packagePaths = packagePaths;   
-  }
-
-  public async run(): Promise<any> {
+class SyncDepsByPath extends Base implements IStrategy {
+  public async run(): Promise<boolean> {
     let changed = false;
-    const allFiles: Array<IPackageType> = [];
-    this.packagePaths.forEach((path) => {
-      const currentFile = JSON.parse(readFileSync(`${path}/${this.PACKAGEJSON}`).toString());
-      allFiles.push(currentFile);
-    });
+    const allFiles = this.getAllFiles();
 
     allFiles.forEach(((file: any) => {
       const { dependencies = {}, peerDependencies = {} }: { dependencies: IPackageType; peerDependencies: IPackageType } = file;
@@ -54,16 +36,12 @@ class SyncDeps implements Runnable {
         }
       });
       const fileToWrite = { ...file, dependencies, peerDependencies };
-      const pathToWrite = this.packagePaths.filter(p => p.includes(file?.name.replace(this.packagePrefix, '')));
 
-      if (file !== fileToWrite) {
-        changed = true;
-        writeFileSync(`${pathToWrite[0]}/${this.PACKAGEJSON}`, JSON.stringify(fileToWrite));
-      }
+      changed = this.writeContent(file, fileToWrite);
     }));
 
     return changed;
   }
 }
 
-export { SyncDeps };
+export { SyncDepsByPath };

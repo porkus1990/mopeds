@@ -1,6 +1,6 @@
 import * as readline from 'readline';
 import { ReadJson } from './read.json/ReadJson';
-import { SyncDeps } from './sync-deps/SyncDeps';
+import { SyncDeps } from './sync-deps/SyncDepsByPath';
 
 const rl = readline.createInterface({
   input: process.stdin,

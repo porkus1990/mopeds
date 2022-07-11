@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { SyncDeps } from '../../src/sync-deps/SyncDeps';
+import { SyncDepsByPath } from '../../src/sync-deps/SyncDepsByPath';
 
 test('should write correct json', () => {
   const paths = [
@@ -7,7 +7,7 @@ test('should write correct json', () => {
     path.join(__dirname, '../read-json/packages/package-b'),
     path.join(__dirname, '../read-json/packages/package-c'),
   ];
-  const sync = new SyncDeps(
+  const sync = new SyncDepsByPath(
     paths,
     '',
   );

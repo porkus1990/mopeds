@@ -1,5 +1,5 @@
 import * as path from 'path';
-import { ReadJson } from '../../src';
+import { ReadJson } from '../../src/read.json/ReadJson';
 
 const testFilePath = path.join(__dirname, 'packages');
 
