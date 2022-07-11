@@ -4,7 +4,7 @@ import { IPackageType } from './packge.type';
 abstract class Base {
   protected readonly packagePrefix: string;
 
-  protected readonly packagePaths: string[];
+  protected packagePaths: string[];
 
   protected readonly PACKAGEJSON = 'package.json';
 
