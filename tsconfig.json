@@ -6,6 +6,8 @@
         },
     },
     "compilerOptions": {
+        "noImplicitAny": false,
+        "noEmitOnError": true,
         "skipLibCheck": true,
         "target": "esnext",
         "module": "commonjs",
@@ -13,9 +15,9 @@
         "allowJs": true,
         "resolveJsonModule": true,
         "esModuleInterop": true,
-        "outDir": "./build",
+        "outDir": "dist",
         "rootDir": "src",
     },
-    "include": ["src/**/*", "__tests__"],
+    "include": ["src/**/*"],
     "exclude": ["node_modules"]
 }

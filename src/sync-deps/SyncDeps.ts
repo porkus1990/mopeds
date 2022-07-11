@@ -2,11 +2,6 @@ import { readFileSync, writeFileSync } from 'fs';
 import { Runnable } from '../runnable-interface';
 import { compareVersions } from '../compare-versions';
 
-interface Dependency {
-  name: String,
-  version: String,
-}
-
 class SyncDeps implements Runnable {
   private readonly packagePrefix: string;
 
@@ -20,21 +15,23 @@ class SyncDeps implements Runnable {
   }
 
   public async run(): Promise<any> {
+    let changed = false;
     const allFiles: Array<Object> = [];
     this.packagePaths.forEach((path) => {
       const currentFile = JSON.parse(readFileSync(`${path}/${this.PACKAGEJSON}`).toString());
       allFiles.push(currentFile);
     });
 
-    allFiles.forEach((file => {
-      const { dependencies, peerDependencies }: { dependencies: Dependency[]; peerDependencies: Dependency[] } = file;
+    allFiles.forEach(((file: any) => {
+      const { dependencies = {}, peerDependencies = {} } = file;
       const depKeys = Object.keys(dependencies);
-      depKeys.forEach(dep => {
+
+      depKeys.forEach((dep: any) => {
         const clearedDep = dep.replace(this.packagePrefix, '');
         if (this.packagePaths.some(path => path.includes(clearedDep))) {
-          const fileToCheck = allFiles.filter(depFile => depFile.name === dep)[0];
+          const fileToCheck: any = allFiles.filter((depFile: any) => depFile?.name === dep)[0];
           if (fileToCheck && fileToCheck?.peerDependencies !== undefined) {
-            const peerDepsToCheck = fileToCheck.peerDependencies;
+            const peerDepsToCheck = fileToCheck?.peerDependencies;
             Object.keys(peerDepsToCheck).forEach(pd => {
               if (dependencies[pd] === undefined) {
                 dependencies[pd] = peerDepsToCheck[pd];
@@ -52,10 +49,16 @@ class SyncDeps implements Runnable {
           }
         }
       });
-      const fileToWrite = { ...file, ...dependencies, ...peerDependencies };
-      const pathToWrite = this.packagePaths.filter(p => p.includes(file.name.replace(this.packagePrefix, '')));
-      writeFileSync(`${pathToWrite[0]}/${this.PACKAGEJSON}`, JSON.stringify(fileToWrite));
+      const fileToWrite = { ...file, dependencies, peerDependencies };
+      const pathToWrite = this.packagePaths.filter(p => p.includes(file?.name.replace(this.packagePrefix, '')));
+
+      if (file !== fileToWrite) {
+        changed = true;
+        writeFileSync(`${pathToWrite[0]}/${this.PACKAGEJSON}`, JSON.stringify(fileToWrite));
+      }
     }));
+
+    return changed;
   }
 }
 
