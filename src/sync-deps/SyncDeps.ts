@@ -2,6 +2,10 @@ import { readFileSync, writeFileSync } from 'fs';
 import { Runnable } from '../runnable-interface';
 import { compareVersions } from '../compare-versions';
 
+interface IPackageType {
+  [name: string]: string;
+}
+
 class SyncDeps implements Runnable {
   private readonly packagePrefix: string;
 
@@ -16,22 +20,22 @@ class SyncDeps implements Runnable {
 
   public async run(): Promise<any> {
     let changed = false;
-    const allFiles: Array<Object> = [];
+    const allFiles: Array<IPackageType> = [];
     this.packagePaths.forEach((path) => {
       const currentFile = JSON.parse(readFileSync(`${path}/${this.PACKAGEJSON}`).toString());
       allFiles.push(currentFile);
     });
 
     allFiles.forEach(((file: any) => {
-      const { dependencies = {}, peerDependencies = {} } = file;
+      const { dependencies = {}, peerDependencies = {} }: { dependencies: IPackageType; peerDependencies: IPackageType } = file;
       const depKeys = Object.keys(dependencies);
 
-      depKeys.forEach((dep: any) => {
+      depKeys.forEach((dep: string) => {
         const clearedDep = dep.replace(this.packagePrefix, '');
         if (this.packagePaths.some(path => path.includes(clearedDep))) {
-          const fileToCheck: any = allFiles.filter((depFile: any) => depFile?.name === dep)[0];
+          const fileToCheck: any = allFiles.filter((depFile: IPackageType) => depFile?.name === dep)[0];
           if (fileToCheck && fileToCheck?.peerDependencies !== undefined) {
-            const peerDepsToCheck = fileToCheck?.peerDependencies;
+            const peerDepsToCheck: IPackageType = fileToCheck?.peerDependencies;
             Object.keys(peerDepsToCheck).forEach(pd => {
               if (dependencies[pd] === undefined) {
                 dependencies[pd] = peerDepsToCheck[pd];
