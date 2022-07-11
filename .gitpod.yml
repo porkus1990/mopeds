@@ -13,8 +13,6 @@ tasks:
     openMode: split-right
     init: npm i
 
-workspaceLocation: ./dm-jobs
-
 vscode:
   extensions:
     - mgmcdermott.vscode-language-babel
