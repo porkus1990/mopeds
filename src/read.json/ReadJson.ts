@@ -1,9 +1,5 @@
-import { readdirSync, statSync, readFileSync  } from 'fs';
-import * as semver from 'semver';
-
-interface Runnable {
-  run(): Promise<Object>;
-}
+import { readdirSync, statSync  } from 'fs';
+import { Runnable } from '../runnable-interface';
 
 class ReadJson implements Runnable {
   private baseFolder: string;
@@ -12,9 +8,9 @@ class ReadJson implements Runnable {
     this.baseFolder = baseFolder;
   }
 
-  public async run(): Promise<Object> {
+  public async run(): Promise<Array<string>> {
     const paths  = await this.readDirectories();
-    return paths;
+    return paths?.length ? paths : [];
   }
 
   private async readDirectories(): Promise<string[]> {

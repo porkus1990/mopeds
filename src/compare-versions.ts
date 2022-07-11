@@ -1,7 +1,10 @@
 import * as semver from 'semver';
 
 export const compareVersions = (versionA: string, versionB: string) => {
-  const operator = Array.from(versionA)[0];
+  let operator = Array.from(versionA)[0];
+  if (operator !== '^' && operator !== '~') {
+    operator = Array.from(versionB)[0];
+  }
             
   if (isNaN(operator)) {
     const newDepCleaned = versionA.replace(operator, '');

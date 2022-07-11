@@ -1,14 +1,1 @@
-{
-    "name": "package-c",
-    "version": "1.0.0",
-    "dependencies": {
-      "@types/jest": "^28.1.4",
-      "ts-jest": "^28.0.5",
-      "typescript": "^4.7.4",
-      "somePackage": "2.6.5",
-      "someOtherPackage": "3.0.0"
-    },
-    "peerDependencies": {
-      "somePackage": "^2.6.8"
-    }
-  }
+{"name":"package-c","version":"1.0.0","dependencies":{"@types/jest":"^28.1.4","ts-jest":"^28.0.5","typescript":"^4.7.4","somePackage":"2.6.5","someOtherPackage":"3.0.0"},"peerDependencies":{"somePackage":"^2.6.8"},"@types/jest":"^28.1.4","ts-jest":"^28.0.5","typescript":"^4.7.4","somePackage":"2.6.5","someOtherPackage":"3.0.0"}
