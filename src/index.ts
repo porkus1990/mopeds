@@ -1,6 +1,5 @@
 import * as readline from 'readline';
 import { ReadJson } from './read.json/ReadJson';
-import { EContentDealing } from './sync-deps/strategies/content-dealing-enum';
 import { Log } from './sync-deps/strategies/handle-change/Log';
 import { Write } from './sync-deps/strategies/handle-change/Write';
 import { SyncDepsByPath } from './sync-deps/SyncDepsByPath';

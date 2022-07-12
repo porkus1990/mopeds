@@ -40,7 +40,7 @@ class SyncDepsByPath extends Base implements IStrategy {
 
       handleContent.handle(file, fileToWrite, this.packagePaths);
 
-      changed = file === fileToWrite;
+      changed = JSON.stringify(file) === JSON.stringify(fileToWrite);
     }));
 
     return changed;
