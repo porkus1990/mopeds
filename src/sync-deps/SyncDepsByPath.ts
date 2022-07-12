@@ -2,9 +2,10 @@ import { compareVersions } from '../compare-versions';
 import { Base } from './strategies/Base';
 import { IStrategy } from './strategies/stretegy.interface';
 import { IPackageType } from './strategies/packge.type';
+import { IHandleContent } from './strategies/handle-change/handle-content.interface';
 
 class SyncDepsByPath extends Base implements IStrategy {
-  public async run(): Promise<boolean> {
+  public async run(handleContent: IHandleContent): Promise<boolean> {
     let changed = false;
     const allFiles = this.getAllFiles();
 
@@ -37,7 +38,9 @@ class SyncDepsByPath extends Base implements IStrategy {
       });
       const fileToWrite = { ...file, dependencies, peerDependencies };
 
-      changed = this.writeContent(file, fileToWrite);
+      handleContent.handle(file, fileToWrite, this.packagePaths);
+
+      changed = file === fileToWrite;
     }));
 
     return changed;

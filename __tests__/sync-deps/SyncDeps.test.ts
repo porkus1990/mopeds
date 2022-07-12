@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { Log } from '../../src/sync-deps/strategies/handle-change/Log';
 import { SyncDepsByPath } from '../../src/sync-deps/SyncDepsByPath';
 
 test('should write correct json', () => {
@@ -12,5 +13,5 @@ test('should write correct json', () => {
     '',
   );
 
-  expect(() => sync.run()).not.toThrow();
+  expect(() => sync.run(new Log)).not.toThrow();
 });
