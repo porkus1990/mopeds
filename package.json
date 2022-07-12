@@ -17,7 +17,7 @@
     "url": "git+https://github.com/porkus1990/mopeds.git"
   },
   "bin": {
-    "mopeds": "./bin/index.js"
+    "mopeds": "./bin/mopeds"
   },
   "keywords": [
     "monorepo",
