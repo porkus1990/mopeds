@@ -2,7 +2,7 @@
 
 [![mopeds](https://github.com/porkus1990/mopeds/actions/workflows/mopeds.yml/badge.svg)](https://github.com/porkus1990/mopeds/actions/workflows/mopeds.yml)
 
-## Tool for fixing MOnorepo-PeerDependeny conflictS
+## Tool for fixing MOnorepo-PeErDependeny conflictS
 
 Why?
 
