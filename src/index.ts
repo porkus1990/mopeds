@@ -1,32 +1,23 @@
-import * as readline from 'readline';
 import { ReadJson } from './read.json/ReadJson';
 import { Log } from './sync-deps/strategies/handle-change/Log';
-import { Write } from './sync-deps/strategies/handle-change/Write';
 import { SyncDepsByPath } from './sync-deps/SyncDepsByPath';
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-  terminal: false,
-});
+import { program } from 'commander';
 
-console.log('\x1b[36m%s\x1b[0m', 'specify path to packages folder and optional a prefix like @myPackage/ < slash is required. e.g. /full-path/packages @prefix/');
+program
+  .command('mopeds')
+  .description('automatically fix peerDependency conflicts in monorepos or workspaces')
+  .argument('[path]', 'path to the folder where the packages live in', '')
+  .argument('[prefix]', 'package prefix like @name/ (slash is required)', '')
+  .action(async (path, prefix) => {
+    const readJson = new ReadJson(path);
+    const paths = await readJson.run();
+      
+    const syncDeps = new SyncDepsByPath(paths, prefix ?? '');
+    let changedSomething = false;
+    while (!changedSomething) {
+      changedSomething = await syncDeps.run(new Log);
+    }
+  });
 
-rl.on('line', async function (line) {
-  let contentDealing = new Write;
-  const [path, prefix, dryRun] = line.split(' ');
-  
-  if (dryRun) {
-    contentDealing = new Log;
-  }
-
-  const readJson = new ReadJson(path);
-  const paths = await readJson.run();
-    
-  const syncDeps = new SyncDepsByPath(paths, prefix ?? '');
-  let changedSomething = false;
-  while (!changedSomething) {
-    changedSomething = await syncDeps.run(contentDealing);
-  }
-  process.exit(0);
-});
+program.parse();
