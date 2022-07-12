@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import path from 'path';
 import { ReadJson } from '../../read.json/ReadJson';
 import { SyncDepsByPath } from '../SyncDepsByPath';
 import { IHandleContent } from './handle-change/handle-content.interface';
@@ -12,7 +13,9 @@ class Workspace implements IStrategy {
   constructor(packagePrefix: string = '') {
     this.packagePrefix = packagePrefix;
 
-    const packageJsonFile = JSON.parse(readFileSync('./package.json').toString());
+    const packageJsonFile = JSON.parse(readFileSync(
+      path.resolve(process.cwd(), './package.json'),
+    ).toString());
 
     this.runFor = packageJsonFile.workspaces;
   }
