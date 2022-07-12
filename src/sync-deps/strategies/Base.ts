@@ -26,7 +26,7 @@ abstract class Base {
   protected writeContent(oldFile: IPackageType, newFile: IPackageType): boolean {
     if (oldFile !== newFile) {
       const pathToWrite = this.packagePaths.filter(p => p.includes(oldFile?.name.replace(this.packagePrefix, '')));
-      writeFileSync(`${pathToWrite[0]}/${this.PACKAGEJSON}`, JSON.stringify(newFile));
+      writeFileSync(`${pathToWrite[0]}/${this.PACKAGEJSON}`, JSON.stringify(newFile, null, 2));
       return true;
     }
 
