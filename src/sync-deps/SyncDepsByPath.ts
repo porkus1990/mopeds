@@ -20,18 +20,14 @@ class SyncDepsByPath extends Base implements IStrategy {
           if (fileToCheck && fileToCheck?.peerDependencies !== undefined) {
             const peerDepsToCheck = fileToCheck?.peerDependencies;
             Object.keys(peerDepsToCheck).forEach(pd => {
-              if (dependencies[pd] === undefined) {
-                dependencies[pd] = peerDepsToCheck[pd];
-                if (peerDependencies[pd] !== undefined) {
-                  peerDependencies[pd] = peerDepsToCheck[pd];
-                }
-              } else {
-                const versionToUse = compareVersions(dependencies[pd], peerDepsToCheck[pd]);
-                dependencies[pd] = versionToUse;
-                if (peerDependencies[pd] !== undefined) {
-                  peerDependencies[pd] = versionToUse;
-                }
-              }
+              this.updateDependency.update(
+                {
+                  currentDependencies: dependencies,
+                  currentPeerDependencies: peerDependencies,
+                  peerDepsToCheck,
+                  pdKey: pd,
+                },
+              );
             });
           }
         }

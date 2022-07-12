@@ -1,4 +1,5 @@
 import { readFileSync } from 'fs';
+import { UpdateDependency } from '../UpdateDependeny';
 import { IPackageType } from './packge.type';
 
 abstract class Base {
@@ -7,6 +8,8 @@ abstract class Base {
   protected packagePaths: string[];
 
   protected readonly PACKAGEJSON = 'package.json';
+
+  protected readonly updateDependency = new UpdateDependency();
 
   constructor(packagePaths: string[], packagePrefix: string = '') {
     this.packagePrefix = packagePrefix;
