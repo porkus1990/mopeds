@@ -1,4 +1,3 @@
-import { compareVersions } from '../compare-versions';
 import { Base } from './strategies/Base';
 import { IStrategy } from './strategies/stretegy.interface';
 import { IPackageType } from './strategies/packge.type';
