@@ -1,17 +1,23 @@
 {
   "name": "@porkus1990/mopeds",
-  "version": "0.0.1",
+  "version": "0.1.1",
+  "private": false,
   "description": "A tool for updating peerDependencies in monorepos",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "jest",
     "lint": "eslint .",
     "build": "tsc --build",
-    "clean": "tsc --build --clean"
+    "clean": "tsc --build --clean",
+    "prepublish": "npm run build"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/porkus1990/mopeds.git"
+  },
+  "bin": {
+    "mopeds": "./bin/index.js"
   },
   "keywords": [
     "monorepo",
