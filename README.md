@@ -1,6 +1,8 @@
 # mopeds
 
-## Tool for automating peerDependencies conflicts
+[![mopeds](https://github.com/porkus1990/mopeds/actions/workflows/mopeds.yml/badge.svg)](https://github.com/porkus1990/mopeds/actions/workflows/mopeds.yml)
+
+## Tool for fixing MOnorepo-PeerDependeny conflicts
 
 Why?
 
