@@ -9,12 +9,14 @@ class SyncDepsByPath extends Base implements IStrategy {
     const allFiles = this.getAllFiles();
 
     allFiles.forEach(((file: any) => {
-      const { dependencies = {}, peerDependencies = {} } = file;
+      const clonedFile = JSON.parse(JSON.stringify(file));
+      const { dependencies = {}, peerDependencies = {} } = clonedFile;
       const depKeys = Object.keys(dependencies);
 
       depKeys.forEach((dep: string) => {
         const clearedDep = dep.replace(this.packagePrefix, '');
         if (this.packagePaths.some(path => path.includes(clearedDep))) {
+
           const fileToCheck = allFiles.filter((depFile: IPackageType) => depFile?.name === dep)[0];
           if (fileToCheck && fileToCheck?.peerDependencies !== undefined) {
             const peerDepsToCheck = fileToCheck?.peerDependencies;
