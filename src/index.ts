@@ -36,7 +36,9 @@ program
 
     const handleContent = program.opts().dryRun ? new Log : new Write;
     let changedSomething = false;
-    while (!changedSomething) {
+    let hardStop = 0;
+    while (!changedSomething && hardStop < 20) {
+      hardStop++;
       changedSomething = await strategy.run(handleContent);
     }
   });

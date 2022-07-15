@@ -15,10 +15,10 @@ class Lerna implements IStrategy {
   constructor(packagePrefix: string = '') {
     this.packagePrefix = packagePrefix;
     const lernaConfig = JSON.parse(readFileSync(
-      path.resolve(process.cwd(), './package.json'),
+      path.resolve(process.cwd(), './lerna.json'),
     ).toString());
 
-    const runFor = lernaConfig.packages ?? [];
+    const runFor = lernaConfig.packages ?? [path.resolve(process.cwd(), './packages')];
     this.runFor = runFor.map(rfor => rfor.replace('/*', ''));
   }
 

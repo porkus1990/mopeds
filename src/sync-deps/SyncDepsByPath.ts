@@ -34,6 +34,8 @@ class SyncDepsByPath extends Base implements IStrategy {
         }
       });
       const fileToWrite = { ...file, dependencies, peerDependencies };
+      if (Object.keys(fileToWrite.dependencies).length === 0) delete fileToWrite.dependencies;
+      if (Object.keys(fileToWrite.peerDependencies).length === 0) delete fileToWrite.peerDependencies;
 
       handleContent.handle(file, fileToWrite, this.packagePaths);
 
