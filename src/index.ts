@@ -9,8 +9,8 @@ import { Workspace } from './sync-deps/strategies/Workspace';
 import { Write } from './sync-deps/strategies/handle-change/Write';
 
 program
-  .option('-p, --path <path>', 'path to the folder where the packages live in')
-  .option('-pf, --prefix <prefix>', 'package prefix like @name/ (slash is required)')
+  .option('-p, --path <path>', 'path to the folder where the packages live in', '')
+  .option('-pf, --prefix <prefix>', 'package prefix like @name/ (slash is required, if set)', '')
   .option('-m, --mode <mode>', 'set lerna or workspace')
   .option('-dry, --dryRun', 'use dryRun and see what woulb be changed', false)
 ;
