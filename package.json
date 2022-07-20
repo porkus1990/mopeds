@@ -1,6 +1,6 @@
 {
   "name": "@porkus1990/mopeds",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": false,
   "description": "A tool for updating peerDependencies in monorepos",
   "main": "dist/index.js",
