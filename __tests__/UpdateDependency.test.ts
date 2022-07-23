@@ -1,6 +1,6 @@
 import { UpdateDependency } from '../src/sync-deps/UpdateDependeny';
 
-it.each([
+test.each([
   [
     { a: '^1.0.0' },
     {},
