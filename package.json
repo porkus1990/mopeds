@@ -7,7 +7,7 @@
   "types": "dist/index.d.ts",
   "files": ["dist/*.js", "dist/**/*.js"],
   "scripts": {
-    "test": "jest",
+    "test": "jest --testPathPattern=./__tests__",
     "lint": "eslint .",
     "build": "tsc --build",
     "clean": "tsc --build --clean",

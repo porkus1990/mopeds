@@ -9,6 +9,9 @@ module.exports = {
   transform: {
     '^.+\\.ts?$': 'ts-jest',
   },
+  "testMatch": [
+    "<rootDir>/__tests__/**/*.test.ts"
+  ],
   transformIgnorePatterns: ['<rootDir>/node_modules/'],
 };
   

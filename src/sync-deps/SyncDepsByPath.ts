@@ -10,7 +10,7 @@ class SyncDepsByPath extends Base implements IStrategy {
 
     allFiles.forEach(((file: any) => {
       const clonedFile = JSON.parse(JSON.stringify(file));
-      const { dependencies = {}, peerDependencies = {} } = clonedFile;
+      let { dependencies = {}, peerDependencies = {} } = clonedFile;
       const depKeys = Object.keys(dependencies);
 
       depKeys.forEach((dep: string) => {
@@ -33,6 +33,10 @@ class SyncDepsByPath extends Base implements IStrategy {
           }
         }
       });
+
+      dependencies = this.sortDeps(dependencies);
+      peerDependencies = this.sortDeps(peerDependencies);
+
       const fileToWrite = { ...file, dependencies, peerDependencies };
       if (Object.keys(fileToWrite.dependencies).length === 0) delete fileToWrite.dependencies;
       if (Object.keys(fileToWrite.peerDependencies).length === 0) delete fileToWrite.peerDependencies;

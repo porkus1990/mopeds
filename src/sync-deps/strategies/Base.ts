@@ -25,6 +25,18 @@ abstract class Base {
 
     return allFiles;
   }
+
+  protected sortDeps(deps: Record<string, string> | undefined) {
+    if (!deps) return deps;
+
+    return Object.keys(deps)
+      .sort()
+      .reduce((acc, key) => {
+        acc[key] = deps[key];
+  
+        return acc;
+      }, {});
+  }
 }
 
 export { Base };
